@@ -8,11 +8,11 @@
 		<version>2.4.2</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
-	<groupId>com.example</groupId>
-	<artifactId>spring-boot</artifactId>
+	<groupId>User_Role_SpringBootApp</groupId>
+	<artifactId>User_Role_SpringBootApp</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>spring-boot</name>
-	<description>Demo project for Spring Boot</description>
+	<name>User_Role_SpringBootApp</name>
+	<description>User and Role app </description>
 
 	<properties>
 		<java.version>1.8</java.version>

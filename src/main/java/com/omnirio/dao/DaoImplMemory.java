@@ -3,23 +3,30 @@ package com.omnirio.dao;
 import com.omnirio.model.Account;
 import com.omnirio.model.CustomResponse;
 import com.omnirio.model.User;
+import com.omnirio.util.Utilities;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Repository;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @Repository
 @Qualifier("InMemory")
 public class DaoImplMemory implements DaoInterface{
 
+    Map<String, User> userID_Users = new HashMap<>();
+    Map<String, List<Account>> userID_Accounts = new HashMap<>();
+    Map<String, Account> accountID_Accounts = new HashMap<>();
+
     @Override
     public CustomResponse getAllUsers() {
 
         CustomResponse customResponse = new CustomResponse();
-        customResponse.setMessage("ABC");
+        customResponse.setMessage("All users!");
         customResponse.setSuccess(true);
 
         Map<String, Object> map = new HashMap<>();
+        map.put("Users", userID_Users.values());
         customResponse.setInfo(map);
         return customResponse;
     }
@@ -31,6 +38,9 @@ public class DaoImplMemory implements DaoInterface{
 
     @Override
     public CustomResponse createUser(User user) {
+
+        user.setUserID(Utilities.generateUniqueID());
+        userID_Users.put(user.getUserID(), user);
         return null;
     }
 
