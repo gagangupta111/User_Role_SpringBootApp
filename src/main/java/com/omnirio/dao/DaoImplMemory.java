@@ -2,6 +2,7 @@ package com.omnirio.dao;
 
 import com.omnirio.model.Account;
 import com.omnirio.model.CustomResponse;
+import com.omnirio.model.Role;
 import com.omnirio.model.User;
 import com.omnirio.util.Utilities;
 import org.json.JSONArray;
@@ -16,9 +17,25 @@ import java.util.Map;
 public class DaoImplMemory implements DaoInterface{
 
     Map<String, User> userID_Users = new HashMap<>();
-    Map<String, User> roles = new HashMap<>();
+    static Map<String, Role> roles = new HashMap<>();
     Map<String, List<Account>> userID_Accounts = new HashMap<>();
     Map<String, Account> accountID_Accounts = new HashMap<>();
+
+    static {
+
+        Role role = new Role();
+        role.setRoleID(Utilities.generateUniqueID());
+        role.setRoleName("BRANCH_MANAGER");
+        role.setCode("BM");
+        roles.put(role.getRoleName(), role);
+
+        role = new Role();
+        role.setRoleID(Utilities.generateUniqueID());
+        role.setRoleName("CUSTOMER");
+        role.setCode("C");
+        roles.put(role.getRoleName(), role);
+
+    }
 
     @Override
     public CustomResponse getAllUsers() {
@@ -91,12 +108,12 @@ public class DaoImplMemory implements DaoInterface{
 
         }else {
 
-            if (roles.get("BRANCH_MANAGER").getRoleID().equals(bm_user.getRoleID())){
+            if (roles.get("BRANCH_MANAGER").getRoleName().equals(bm_user.getRoleName())){
 
                 updated = userID_Users.get(user.getUserID());
 
                 updated.setUserName(user.getUserName());
-                updated.setRoleID(user.getRoleID());
+                updated.setRoleName(user.getRoleName());
                 updated.setPhoneNumber(user.getPhoneNumber());
                 updated.setGender(user.getGender());
                 updated.setDob(user.getDob());
@@ -104,6 +121,10 @@ public class DaoImplMemory implements DaoInterface{
 
             }else {
                 // error
+                CustomResponse customResponse = new CustomResponse();
+                customResponse.setMessage("Not a branch Manager!");
+                customResponse.setSuccess(false);
+                return customResponse;
             }
         }
 

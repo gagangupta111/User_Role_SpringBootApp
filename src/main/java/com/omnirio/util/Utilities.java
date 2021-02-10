@@ -62,7 +62,7 @@ public class Utilities {
             object = user.getDob() != null ? object.put("dob", user.getDob()) : object;
             object = user.getGender() != null ? object.put("gender", user.getGender()) : object;
             object = user.getPhoneNumber() != null ? object.put("phoneNumber", user.getPhoneNumber()) : object;
-            object = user.getRoleID() != null ? object.put("roleID", user.getRoleID()) : object;
+            object = user.getRoleName() != null ? object.put("roleName", user.getRoleName()) : object;
 
             object = user.getUserName() != null ? object.put("userName", user.getUserName()) : object;
 
@@ -82,7 +82,7 @@ public class Utilities {
             user.setDob(jsonObject.has("dob") ? jsonObject.getString("dob") : null);
             user.setGender(jsonObject.has("gender") ? jsonObject.getString("gender") : null);
             user.setPhoneNumber(jsonObject.has("phoneNumber") ? jsonObject.getString("phoneNumber") : null);
-            user.setRoleID(jsonObject.has("roleID") ? jsonObject.getString("roleID") : null);
+            user.setRoleName(jsonObject.has("roleName") ? jsonObject.getString("roleName") : null);
             user.setUserName(jsonObject.has("userName") ? jsonObject.getString("userName") : null);
 
         } catch (Exception e) {
