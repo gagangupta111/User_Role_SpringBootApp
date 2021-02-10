@@ -16,6 +16,7 @@ import java.util.Map;
 public class DaoImplMemory implements DaoInterface{
 
     Map<String, User> userID_Users = new HashMap<>();
+    Map<String, User> roles = new HashMap<>();
     Map<String, List<Account>> userID_Accounts = new HashMap<>();
     Map<String, Account> accountID_Accounts = new HashMap<>();
 
@@ -69,6 +70,43 @@ public class DaoImplMemory implements DaoInterface{
 
     @Override
     public CustomResponse userUpdateUser(String userID, User user) {
+
+        User bm_user = userID_Users.get(userID);
+        User updated = null;
+
+        if (bm_user == null){
+
+            CustomResponse customResponse = new CustomResponse();
+            customResponse.setMessage("Branch Manager User!");
+            customResponse.setSuccess(false);
+            return customResponse;
+
+        }else if (user.getUserID() == null){
+
+            // error
+            CustomResponse customResponse = new CustomResponse();
+            customResponse.setMessage("Invalid User!");
+            customResponse.setSuccess(false);
+            return customResponse;
+
+        }else {
+
+            if (roles.get("BRANCH_MANAGER").getRoleID().equals(bm_user.getRoleID())){
+
+                updated = userID_Users.get(user.getUserID());
+
+                updated.setUserName(user.getUserName());
+                updated.setRoleID(user.getRoleID());
+                updated.setPhoneNumber(user.getPhoneNumber());
+                updated.setGender(user.getGender());
+                updated.setDob(user.getDob());
+                updated.setBranch(user.getBranch());
+
+            }else {
+                // error
+            }
+        }
+
         return null;
     }
 
