@@ -21,55 +21,40 @@ public class UserService {
 
     }
 
-    CustomResponse getUser(String userID){
+    public CustomResponse getUser(String userID){
 
         return dao.getUser(userID);
 
     }
 
-    CustomResponse createUser(User user){
+    public CustomResponse createUser(User user){
 
         return dao.createUser(user);
 
     }
 
-    CustomResponse getAllAccounts(){
-
-        return dao.getAllAccounts();
-    }
-
-    CustomResponse getAccount(String accountID){
-
-        return dao.getAccount(accountID);
-    }
-
-    CustomResponse createAccount(Account account){
-
-        return dao.createAccount(account);
-    }
-
-    CustomResponse userUpdateUser(String userID, User user){
+    public CustomResponse userUpdateUser(String userID, User user){
 
         return dao.userUpdateUser(userID, user);
     }
 
-    CustomResponse userDeleteUser(String userID){
+    public CustomResponse userDeleteUser(String userID){
 
         return dao.userDeleteUser(userID);
     }
 
-    CustomResponse userUpdateAccount(String accountID, Account account){
+    public CustomResponse userUpdateAccount(String accountID, Account account){
 
         return dao.userUpdateAccount(accountID, account);
     }
 
 
-    CustomResponse userDeleteAccount(String accountID){
+    public CustomResponse userDeleteAccount(String accountID){
 
         return dao.userDeleteAccount(accountID);
     }
 
-    CustomResponse getUserAllAccounts(String userID){
+    public CustomResponse getUserAllAccounts(String userID){
 
         return dao.getUserAllAccounts(userID);
     }

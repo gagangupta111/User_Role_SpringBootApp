@@ -10,10 +10,6 @@ public interface DaoInterface {
     CustomResponse getUser(String userID);
     CustomResponse createUser(User user);
 
-    CustomResponse getAllAccounts();
-    CustomResponse getAccount(String accountID);
-    CustomResponse createAccount(Account account);
-
     CustomResponse userUpdateUser(String userID, User user);
     CustomResponse userDeleteUser(String userID);
 

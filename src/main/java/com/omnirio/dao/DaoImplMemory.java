@@ -4,6 +4,7 @@ import com.omnirio.model.Account;
 import com.omnirio.model.CustomResponse;
 import com.omnirio.model.User;
 import com.omnirio.util.Utilities;
+import org.json.JSONArray;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Repository;
 import java.util.HashMap;
@@ -22,18 +23,32 @@ public class DaoImplMemory implements DaoInterface{
     public CustomResponse getAllUsers() {
 
         CustomResponse customResponse = new CustomResponse();
-        customResponse.setMessage("All users!");
+        customResponse.setMessage("All Users!");
         customResponse.setSuccess(true);
 
         Map<String, Object> map = new HashMap<>();
-        map.put("Users", userID_Users.values());
+
+        JSONArray array = new JSONArray();
+        for (User user : userID_Users.values()){
+            array.put(Utilities.userToJson(user));
+        }
+
+        map.put("User", array);
         customResponse.setInfo(map);
         return customResponse;
     }
 
     @Override
     public CustomResponse getUser(String userID) {
-        return null;
+
+        CustomResponse customResponse = new CustomResponse();
+        customResponse.setMessage("All Users!");
+        customResponse.setSuccess(true);
+
+        Map<String, Object> map = new HashMap<>();
+        map.put("User", Utilities.userToJson(userID_Users.get(userID)));
+        customResponse.setInfo(map);
+        return customResponse;
     }
 
     @Override
@@ -41,22 +56,15 @@ public class DaoImplMemory implements DaoInterface{
 
         user.setUserID(Utilities.generateUniqueID());
         userID_Users.put(user.getUserID(), user);
-        return null;
-    }
 
-    @Override
-    public CustomResponse getAllAccounts() {
-        return null;
-    }
+        CustomResponse customResponse = new CustomResponse();
+        customResponse.setMessage("User Created!");
+        customResponse.setSuccess(true);
 
-    @Override
-    public CustomResponse getAccount(String accountID) {
-        return null;
-    }
-
-    @Override
-    public CustomResponse createAccount(Account account) {
-        return null;
+        Map<String, Object> map = new HashMap<>();
+        map.put("User", Utilities.userToJson(user));
+        customResponse.setInfo(map);
+        return customResponse;
     }
 
     @Override
