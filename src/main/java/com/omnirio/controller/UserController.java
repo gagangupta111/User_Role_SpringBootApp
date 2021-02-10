@@ -35,6 +35,7 @@ public class UserController {
 					.body(customResponse.getMessage());
 		}
 
+
 	}
 
 	@RequestMapping(value = "/user/{id}", method = RequestMethod.GET)
