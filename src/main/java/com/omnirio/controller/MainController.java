@@ -37,4 +37,22 @@ public class MainController {
 
 	}
 
+	@RequestMapping(value = "/user/{id}", method = RequestMethod.GET)
+	public ResponseEntity<String> testJson(@PathVariable("id") String id) {
+
+
+		CustomResponse customResponse = mainService.getAllUsers();
+
+		if (customResponse.getSuccess()) {
+			return ResponseEntity.ok()
+					.header("message", customResponse.getMessage())
+					.body(customResponse.getInfoAsJson().toString());
+		} else {
+			return ResponseEntity.badRequest()
+					.header("message", customResponse.getMessage())
+					.body(customResponse.getMessage());
+		}
+
+	}
+
 }
