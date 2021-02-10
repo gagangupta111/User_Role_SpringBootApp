@@ -16,6 +16,4 @@ public interface DaoInterface {
     CustomResponse userUpdateAccount(String accountID, Account account);
     CustomResponse userDeleteAccount(String bm_user_id, String accountID);
 
-    CustomResponse getUserAllAccounts(String userID);
-
 }

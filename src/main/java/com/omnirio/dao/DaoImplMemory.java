@@ -270,9 +270,4 @@ public class DaoImplMemory implements DaoInterface{
         }
 
     }
-
-    @Override
-    public CustomResponse getUserAllAccounts(String userID) {
-        return null;
-    }
 }

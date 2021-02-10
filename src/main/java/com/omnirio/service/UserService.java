@@ -54,11 +54,6 @@ public class UserService {
         return dao.userDeleteAccount(bm_user_id, accountID);
     }
 
-    public CustomResponse getUserAllAccounts(String userID){
-
-        return dao.getUserAllAccounts(userID);
-    }
-
 
 
 }
