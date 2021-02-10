@@ -49,7 +49,7 @@ public class UserController {
 		} else {
 			return ResponseEntity.badRequest()
 					.header("message", customResponse.getMessage())
-					.body(customResponse.getMessage());
+					.body(customResponse.getInfoAsJson().toString());
 		}
 
 	}
@@ -85,7 +85,7 @@ public class UserController {
 		} else {
 			return ResponseEntity.badRequest()
 					.header("message", customResponse.getMessage())
-					.body(customResponse.getMessage());
+					.body(customResponse.getInfoAsJson().toString());
 		}
 	}
 
@@ -102,7 +102,7 @@ public class UserController {
         } else {
             return ResponseEntity.badRequest()
                     .header("message", customResponse.getMessage())
-                    .body(customResponse.getMessage());
+					.body(customResponse.getInfoAsJson().toString());
         }
     }
 
@@ -120,7 +120,7 @@ public class UserController {
 		} else {
 			return ResponseEntity.badRequest()
 					.header("message", customResponse.getMessage())
-					.body(customResponse.getMessage());
+					.body(customResponse.getInfoAsJson().toString());
 		}
 	}
 
@@ -137,7 +137,7 @@ public class UserController {
 		} else {
 			return ResponseEntity.badRequest()
 					.header("message", customResponse.getMessage())
-					.body(customResponse.getMessage());
+					.body(customResponse.getInfoAsJson().toString());
 		}
 	}
 

@@ -4,6 +4,7 @@ import com.omnirio.model.Account;
 import com.omnirio.model.CustomResponse;
 import com.omnirio.model.Role;
 import com.omnirio.model.User;
+import com.omnirio.util.Errors;
 import com.omnirio.util.Utilities;
 import org.json.JSONArray;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -57,6 +58,15 @@ public class DaoImplMemory implements DaoInterface{
     @Override
     public CustomResponse getUser(String userID) {
 
+        User user = userID_Users.get(userID);
+        if (user == null){
+            CustomResponse customResponse = new CustomResponse();
+            customResponse.setMessage(Errors.INVALID_USER_ID.getMessage());
+            customResponse.setInfo(Errors.INVALID_USER_ID.AsMap());
+            customResponse.setSuccess(false);
+            return customResponse;
+        }
+
         CustomResponse customResponse = new CustomResponse();
         customResponse.setMessage("All Users!");
         customResponse.setSuccess(true);
@@ -92,7 +102,8 @@ public class DaoImplMemory implements DaoInterface{
         if (bm_user == null){
 
             CustomResponse customResponse = new CustomResponse();
-            customResponse.setMessage("Invalid Branch Manager User!");
+            customResponse.setMessage(Errors.INVAID_BRANCH_MANAGER_ID.getMessage());
+            customResponse.setInfo(Errors.INVAID_BRANCH_MANAGER_ID.AsMap());
             customResponse.setSuccess(false);
             return customResponse;
 
@@ -100,7 +111,16 @@ public class DaoImplMemory implements DaoInterface{
 
             // error
             CustomResponse customResponse = new CustomResponse();
-            customResponse.setMessage("Invalid User!");
+            customResponse.setMessage(Errors.INVALID_USER_ID.getMessage());
+            customResponse.setInfo(Errors.INVALID_USER_ID.AsMap());
+            customResponse.setSuccess(false);
+            return customResponse;
+
+        }else if (bm_user.getBranch() == null || !bm_user.getBranch().equalsIgnoreCase(updated.getBranch())){
+
+            CustomResponse customResponse = new CustomResponse();
+            customResponse.setMessage(Errors.BRANCH_MISMATCH.getMessage());
+            customResponse.setInfo(Errors.BRANCH_MISMATCH.AsMap());
             customResponse.setSuccess(false);
             return customResponse;
 
@@ -127,7 +147,8 @@ public class DaoImplMemory implements DaoInterface{
             }else {
                 // error
                 CustomResponse customResponse = new CustomResponse();
-                customResponse.setMessage("Not a branch Manager!");
+                customResponse.setMessage(Errors.NOT_BRANCH_MANAGER.getMessage());
+                customResponse.setInfo(Errors.NOT_BRANCH_MANAGER.AsMap());
                 customResponse.setSuccess(false);
                 return customResponse;
             }
@@ -143,14 +164,24 @@ public class DaoImplMemory implements DaoInterface{
         if (bm_user == null){
 
             CustomResponse customResponse = new CustomResponse();
-            customResponse.setMessage("Branch Manager User!");
+            customResponse.setMessage(Errors.INVAID_BRANCH_MANAGER_ID.getMessage());
+            customResponse.setInfo(Errors.INVAID_BRANCH_MANAGER_ID.AsMap());
             customResponse.setSuccess(false);
             return customResponse;
 
         }else if (user == null){
 
             CustomResponse customResponse = new CustomResponse();
-            customResponse.setMessage("Invalid User!");
+            customResponse.setMessage(Errors.INVALID_USER_ID.getMessage());
+            customResponse.setInfo(Errors.INVALID_USER_ID.AsMap());
+            customResponse.setSuccess(false);
+            return customResponse;
+
+        }else if (bm_user.getBranch() == null || !bm_user.getBranch().equalsIgnoreCase(user.getBranch())){
+
+            CustomResponse customResponse = new CustomResponse();
+            customResponse.setMessage(Errors.BRANCH_MISMATCH.getMessage());
+            customResponse.setInfo(Errors.BRANCH_MISMATCH.AsMap());
             customResponse.setSuccess(false);
             return customResponse;
 
@@ -172,7 +203,8 @@ public class DaoImplMemory implements DaoInterface{
             }else {
                 // error
                 CustomResponse customResponse = new CustomResponse();
-                customResponse.setMessage("Not a branch Manager!");
+                customResponse.setMessage(Errors.NOT_BRANCH_MANAGER.getMessage());
+                customResponse.setInfo(Errors.NOT_BRANCH_MANAGER.AsMap());
                 customResponse.setSuccess(false);
                 return customResponse;
             }
@@ -189,14 +221,24 @@ public class DaoImplMemory implements DaoInterface{
         if (bm_user == null){
 
             CustomResponse customResponse = new CustomResponse();
-            customResponse.setMessage("Branch Manager User Does not Exist!");
+            customResponse.setMessage(Errors.INVAID_BRANCH_MANAGER_ID.getMessage());
+            customResponse.setInfo(Errors.INVAID_BRANCH_MANAGER_ID.AsMap());
             customResponse.setSuccess(false);
             return customResponse;
 
         }else if (toBeUpdatedAccount == null){
 
             CustomResponse customResponse = new CustomResponse();
-            customResponse.setMessage("Invalid Account!");
+            customResponse.setMessage(Errors.INVALID_ACCOUNT_ID.getMessage());
+            customResponse.setInfo(Errors.INVALID_ACCOUNT_ID.AsMap());
+            customResponse.setSuccess(false);
+            return customResponse;
+
+        }else if (bm_user.getBranch() == null || !bm_user.getBranch().equalsIgnoreCase(toBeUpdatedAccount.getBranch())){
+
+            CustomResponse customResponse = new CustomResponse();
+            customResponse.setMessage(Errors.BRANCH_MISMATCH.getMessage());
+            customResponse.setInfo(Errors.BRANCH_MISMATCH.AsMap());
             customResponse.setSuccess(false);
             return customResponse;
 
@@ -218,7 +260,8 @@ public class DaoImplMemory implements DaoInterface{
             }else {
                 // error
                 CustomResponse customResponse = new CustomResponse();
-                customResponse.setMessage("Not a branch Manager!");
+                customResponse.setMessage(Errors.NOT_BRANCH_MANAGER.getMessage());
+                customResponse.setInfo(Errors.NOT_BRANCH_MANAGER.AsMap());
                 customResponse.setSuccess(false);
                 return customResponse;
             }
@@ -234,14 +277,24 @@ public class DaoImplMemory implements DaoInterface{
         if (bm_user == null){
 
             CustomResponse customResponse = new CustomResponse();
-            customResponse.setMessage("Branch Manager User Does not Exist!");
+            customResponse.setMessage(Errors.INVAID_BRANCH_MANAGER_ID.getMessage());
+            customResponse.setInfo(Errors.INVAID_BRANCH_MANAGER_ID.AsMap());
             customResponse.setSuccess(false);
             return customResponse;
 
         }else if (toBeDeletedAccount == null){
 
             CustomResponse customResponse = new CustomResponse();
-            customResponse.setMessage("Invalid Account!");
+            customResponse.setMessage(Errors.INVALID_ACCOUNT_ID.getMessage());
+            customResponse.setInfo(Errors.INVALID_ACCOUNT_ID.AsMap());
+            customResponse.setSuccess(false);
+            return customResponse;
+
+        }else if (bm_user.getBranch() == null || !bm_user.getBranch().equalsIgnoreCase(toBeDeletedAccount.getBranch())){
+
+            CustomResponse customResponse = new CustomResponse();
+            customResponse.setMessage(Errors.BRANCH_MISMATCH.getMessage());
+            customResponse.setInfo(Errors.BRANCH_MISMATCH.AsMap());
             customResponse.setSuccess(false);
             return customResponse;
 
@@ -263,7 +316,8 @@ public class DaoImplMemory implements DaoInterface{
             }else {
                 // error
                 CustomResponse customResponse = new CustomResponse();
-                customResponse.setMessage("Not a branch Manager!");
+                customResponse.setMessage(Errors.NOT_BRANCH_MANAGER.getMessage());
+                customResponse.setInfo(Errors.NOT_BRANCH_MANAGER.AsMap());
                 customResponse.setSuccess(false);
                 return customResponse;
             }
