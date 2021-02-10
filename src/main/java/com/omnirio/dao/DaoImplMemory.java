@@ -18,8 +18,6 @@ public class DaoImplMemory implements DaoInterface{
 
     Map<String, User> userID_Users = new HashMap<>();
     static Map<String, Role> roles = new HashMap<>();
-    Map<String, List<Account>> userID_Accounts = new HashMap<>();
-    Map<String, Account> accountID_Accounts = new HashMap<>();
 
     static {
 
@@ -89,16 +87,16 @@ public class DaoImplMemory implements DaoInterface{
     public CustomResponse userUpdateUser(String userID, User user) {
 
         User bm_user = userID_Users.get(userID);
-        User updated = null;
+        User updated = userID_Users.get(user.getUserID());
 
         if (bm_user == null){
 
             CustomResponse customResponse = new CustomResponse();
-            customResponse.setMessage("Branch Manager User!");
+            customResponse.setMessage("Invalid Branch Manager User!");
             customResponse.setSuccess(false);
             return customResponse;
 
-        }else if (user.getUserID() == null){
+        }else if (user.getUserID() == null || updated == null){
 
             // error
             CustomResponse customResponse = new CustomResponse();
@@ -110,14 +108,66 @@ public class DaoImplMemory implements DaoInterface{
 
             if (roles.get("BRANCH_MANAGER").getRoleName().equals(bm_user.getRoleName())){
 
-                updated = userID_Users.get(user.getUserID());
-
                 updated.setUserName(user.getUserName());
                 updated.setRoleName(user.getRoleName());
                 updated.setPhoneNumber(user.getPhoneNumber());
                 updated.setGender(user.getGender());
                 updated.setDob(user.getDob());
                 updated.setBranch(user.getBranch());
+
+                CustomResponse customResponse = new CustomResponse();
+                customResponse.setMessage("User Updated!");
+                customResponse.setSuccess(true);
+
+                Map<String, Object> map = new HashMap<>();
+                map.put("User", Utilities.userToJson(updated));
+                customResponse.setInfo(map);
+                return customResponse;
+
+            }else {
+                // error
+                CustomResponse customResponse = new CustomResponse();
+                customResponse.setMessage("Not a branch Manager!");
+                customResponse.setSuccess(false);
+                return customResponse;
+            }
+        }
+    }
+
+    @Override
+    public CustomResponse userDeleteUser(String bm_id, String userID) {
+
+        User bm_user = userID_Users.get(bm_id);
+        User user = userID_Users.get(userID);
+
+        if (bm_user == null){
+
+            CustomResponse customResponse = new CustomResponse();
+            customResponse.setMessage("Branch Manager User!");
+            customResponse.setSuccess(false);
+            return customResponse;
+
+        }else if (user == null){
+
+            CustomResponse customResponse = new CustomResponse();
+            customResponse.setMessage("Invalid User!");
+            customResponse.setSuccess(false);
+            return customResponse;
+
+        }else {
+
+            if (roles.get("BRANCH_MANAGER").getRoleName().equals(bm_user.getRoleName())){
+
+                userID_Users.remove(userID);
+
+                CustomResponse customResponse = new CustomResponse();
+                customResponse.setMessage("User Deleted!");
+                customResponse.setSuccess(true);
+
+                Map<String, Object> map = new HashMap<>();
+                map.put("User", Utilities.userToJson(user));
+                customResponse.setInfo(map);
+                return customResponse;
 
             }else {
                 // error
@@ -128,22 +178,97 @@ public class DaoImplMemory implements DaoInterface{
             }
         }
 
-        return null;
     }
 
     @Override
-    public CustomResponse userDeleteUser(String userID) {
-        return null;
+    public CustomResponse userUpdateAccount(String bm_userID, Account account) {
+
+        User bm_user = userID_Users.get(bm_userID);
+        Account toBeUpdatedAccount = account.getAccountID() == null ? null : Utilities.getAccounts(account.getAccountID());
+
+        if (bm_user == null){
+
+            CustomResponse customResponse = new CustomResponse();
+            customResponse.setMessage("Branch Manager User Does not Exist!");
+            customResponse.setSuccess(false);
+            return customResponse;
+
+        }else if (toBeUpdatedAccount == null){
+
+            CustomResponse customResponse = new CustomResponse();
+            customResponse.setMessage("Invalid Account!");
+            customResponse.setSuccess(false);
+            return customResponse;
+
+        }else {
+
+            if (roles.get("BRANCH_MANAGER").getRoleName().equals(bm_user.getRoleName())){
+
+                Utilities.updateAccount(account.getAccountID(), account);
+
+                CustomResponse customResponse = new CustomResponse();
+                customResponse.setMessage("Account Updated!");
+                customResponse.setSuccess(true);
+
+                Map<String, Object> map = new HashMap<>();
+                map.put("Account", Utilities.accountToJson(account));
+                customResponse.setInfo(map);
+                return customResponse;
+
+            }else {
+                // error
+                CustomResponse customResponse = new CustomResponse();
+                customResponse.setMessage("Not a branch Manager!");
+                customResponse.setSuccess(false);
+                return customResponse;
+            }
+        }
     }
 
     @Override
-    public CustomResponse userUpdateAccount(String accountID, Account account) {
-        return null;
-    }
+    public CustomResponse userDeleteAccount(String bm_user_id, String accountID) {
 
-    @Override
-    public CustomResponse userDeleteAccount(String accountID) {
-        return null;
+        User bm_user = userID_Users.get(bm_user_id);
+        Account toBeDeletedAccount = accountID == null ? null : Utilities.getAccounts(accountID);
+
+        if (bm_user == null){
+
+            CustomResponse customResponse = new CustomResponse();
+            customResponse.setMessage("Branch Manager User Does not Exist!");
+            customResponse.setSuccess(false);
+            return customResponse;
+
+        }else if (toBeDeletedAccount == null){
+
+            CustomResponse customResponse = new CustomResponse();
+            customResponse.setMessage("Invalid Account!");
+            customResponse.setSuccess(false);
+            return customResponse;
+
+        }else {
+
+            if (roles.get("BRANCH_MANAGER").getRoleName().equals(bm_user.getRoleName())){
+
+                Utilities.deleteAccount(accountID);
+
+                CustomResponse customResponse = new CustomResponse();
+                customResponse.setMessage("Account Deleted!");
+                customResponse.setSuccess(true);
+
+                Map<String, Object> map = new HashMap<>();
+                map.put("Account", Utilities.accountToJson(toBeDeletedAccount));
+                customResponse.setInfo(map);
+                return customResponse;
+
+            }else {
+                // error
+                CustomResponse customResponse = new CustomResponse();
+                customResponse.setMessage("Not a branch Manager!");
+                customResponse.setSuccess(false);
+                return customResponse;
+            }
+        }
+
     }
 
     @Override

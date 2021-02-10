@@ -38,20 +38,20 @@ public class UserService {
         return dao.userUpdateUser(userID, user);
     }
 
-    public CustomResponse userDeleteUser(String userID){
+    public CustomResponse userDeleteUser(String bm_id, String userID){
 
-        return dao.userDeleteUser(userID);
+        return dao.userDeleteUser(bm_id, userID);
     }
 
-    public CustomResponse userUpdateAccount(String accountID, Account account){
+    public CustomResponse userUpdateAccount(String bm_userID, Account account){
 
-        return dao.userUpdateAccount(accountID, account);
+        return dao.userUpdateAccount(bm_userID, account);
     }
 
 
-    public CustomResponse userDeleteAccount(String accountID){
+    public CustomResponse userDeleteAccount(String bm_user_id, String accountID){
 
-        return dao.userDeleteAccount(accountID);
+        return dao.userDeleteAccount(bm_user_id, accountID);
     }
 
     public CustomResponse getUserAllAccounts(String userID){

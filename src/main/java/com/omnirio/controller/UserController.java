@@ -73,11 +73,63 @@ public class UserController {
 
 	// below services will generate a token, this token will be used by Account service in order to work well.
 	@RequestMapping(value = "/user/{bm_id}/user", method = RequestMethod.PUT)
-	public ResponseEntity<String> updateUser(@PathVariable("bm_id") String bm_id,
+	public ResponseEntity<String> userUpdateUser(@PathVariable("bm_id") String bm_id,
 											 @RequestBody String body) throws JSONException {
 
 		JSONObject jsonObject = new JSONObject(body.trim());
 		CustomResponse customResponse = mainService.userUpdateUser(bm_id, Utilities.jsonToUser(jsonObject));
+		if (customResponse.getSuccess()) {
+			return ResponseEntity.ok()
+					.header("message", customResponse.getMessage())
+					.body(customResponse.getInfoAsJson().toString());
+		} else {
+			return ResponseEntity.badRequest()
+					.header("message", customResponse.getMessage())
+					.body(customResponse.getMessage());
+		}
+	}
+
+    // below services will generate a token, this token will be used by Account service in order to work well.
+    @RequestMapping(value = "/user/{bm_id}/user/{user_id}", method = RequestMethod.DELETE)
+    public ResponseEntity<String> userDeleteUser(@PathVariable("bm_id") String bm_id,
+                                                 @PathVariable("user_id") String user_id) throws JSONException {
+
+        CustomResponse customResponse = mainService.userDeleteUser(bm_id, user_id);
+        if (customResponse.getSuccess()) {
+            return ResponseEntity.ok()
+                    .header("message", customResponse.getMessage())
+                    .body(customResponse.getInfoAsJson().toString());
+        } else {
+            return ResponseEntity.badRequest()
+                    .header("message", customResponse.getMessage())
+                    .body(customResponse.getMessage());
+        }
+    }
+
+	// below services will generate a token, this token will be used by Account service in order to work well.
+	@RequestMapping(value = "/user/{bm_id}/account", method = RequestMethod.PUT)
+	public ResponseEntity<String> userUpdateAccount(@PathVariable("bm_id") String bm_id,
+												 @RequestBody String body) throws JSONException {
+
+		JSONObject jsonObject = new JSONObject(body.trim());
+		CustomResponse customResponse = mainService.userUpdateAccount(bm_id, Utilities.jsonToAccount(jsonObject));
+		if (customResponse.getSuccess()) {
+			return ResponseEntity.ok()
+					.header("message", customResponse.getMessage())
+					.body(customResponse.getInfoAsJson().toString());
+		} else {
+			return ResponseEntity.badRequest()
+					.header("message", customResponse.getMessage())
+					.body(customResponse.getMessage());
+		}
+	}
+
+	// below services will generate a token, this token will be used by Account service in order to work well.
+	@RequestMapping(value = "/user/{bm_id}/account/{account_id}", method = RequestMethod.DELETE)
+	public ResponseEntity<String> userDeleteAccount(@PathVariable("bm_id") String bm_id,
+												 @PathVariable("account_id") String account_id) throws JSONException {
+
+		CustomResponse customResponse = mainService.userDeleteAccount(bm_id, account_id);
 		if (customResponse.getSuccess()) {
 			return ResponseEntity.ok()
 					.header("message", customResponse.getMessage())
