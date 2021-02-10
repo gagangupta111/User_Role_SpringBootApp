@@ -26,13 +26,13 @@ public class AppTest {
 
     @BeforeEach
     public void setUp() throws Exception {
-        this.base = new URL("http://localhost:" + port + "/");
+        this.base = new URL("http://localhost:" + port + "/omnirio/user");
     }
 
     @Test
     public void getHello() throws Exception {
         ResponseEntity<String> response = template.getForEntity(base.toString(),
                 String.class);
-        assertThat(response.getBody()).isEqualTo("Greetings from Spring Boot!");
+        assertThat(response.getBody()).isEqualTo("ABC");
     }
 }
