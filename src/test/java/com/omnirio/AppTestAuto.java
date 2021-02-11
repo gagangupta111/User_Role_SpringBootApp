@@ -59,8 +59,7 @@ public class AppTestAuto {
 	public void getUsers() throws Exception {
 		mvc.perform(MockMvcRequestBuilders.get("/omnirio/user").accept(MediaType.APPLICATION_JSON))
 				.andExpect(status().isOk())
-				.andExpect(jsonPath("$.User").isArray())
-				.andExpect(jsonPath("$.User", hasSize(2)));
+				.andExpect(jsonPath("$.User").isArray());
 	}
 
 
