@@ -22,7 +22,7 @@ import java.util.*;
 
 public class Utilities {
 
-    public static final String ACCOUNT_URL = "http://localhost:8081/omnirio/account";
+    public static final String ACCOUNT_URL = "https://accountsspringbootapp.herokuapp.com/omnirio/account";
 
     public static String generateUniqueID() {
         String uniqueID = UUID.randomUUID().toString();
