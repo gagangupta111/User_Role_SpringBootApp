@@ -4,11 +4,14 @@ import com.omnirio.model.Account;
 import com.omnirio.model.CustomResponse;
 import com.omnirio.model.Role;
 import com.omnirio.model.User;
+import com.omnirio.util.Constants;
 import com.omnirio.util.Errors;
 import com.omnirio.util.Utilities;
 import org.json.JSONArray;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Repository;
+
+import javax.rmi.CORBA.Util;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -81,7 +84,24 @@ public class DaoImplMemory implements DaoInterface{
     public CustomResponse createUser(User user) {
 
         user.setUserID(Utilities.generateUniqueID());
+
+        if (user.getRoleName() == null){
+            user.setRoleName(Constants.DEFAULT);
+        }
+
+        if (user.getBranch() == null){
+            user.setBranch(Constants.DEFAULT);
+        }
+
         userID_Users.put(user.getUserID(), user);
+
+        if (user.getDob() != null && !Utilities.isValidFormat("dd/MM/yyyy", user.getDob())){
+            CustomResponse customResponse = new CustomResponse();
+            customResponse.setMessage(Errors.INVALID_DATE_FORMAT.getMessage());
+            customResponse.setInfo(Errors.INVALID_DATE_FORMAT.AsMap());
+            customResponse.setSuccess(false);
+            return customResponse;
+        }
 
         CustomResponse customResponse = new CustomResponse();
         customResponse.setMessage("User Created!");

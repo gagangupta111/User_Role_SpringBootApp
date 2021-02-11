@@ -11,7 +11,8 @@ public enum Errors {
     NOT_BRANCH_MANAGER(403, "ID_DOES_NOT_BELONG_TO_BRANCH_MANAGER", ""),
     INVAID_BRANCH_MANAGER_ID(402, "INVAID_BRANCH_MANAGER_ID", ""),
     INVALID_USER_ID(404, "INVALID_USER_ID", ""),
-    INVALID_ACCOUNT_ID(405, "INVALID_ACCOUNT_ID", "");
+    INVALID_ACCOUNT_ID(405, "INVALID_ACCOUNT_ID", ""),
+    INVALID_DATE_FORMAT(406, "INVALID_DATE_FORMAT", "Date format must be dd/MM/yyyy. Example: 25/12/2020 for Dec 25, 2020");
 
     private int code;
     private String message;

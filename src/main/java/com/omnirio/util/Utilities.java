@@ -17,6 +17,7 @@ import org.json.JSONObject;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 public class Utilities {
@@ -26,6 +27,24 @@ public class Utilities {
     public static String generateUniqueID() {
         String uniqueID = UUID.randomUUID().toString();
         return uniqueID;
+    }
+
+    public static String getCurrentDate() throws Exception {
+        return new SimpleDateFormat("dd-MM-yyyy").parse(new Date().toString()).toString();
+    }
+
+    public static boolean isValidFormat(String format, String value) {
+        Date date = null;
+        try {
+            SimpleDateFormat sdf = new SimpleDateFormat(format);
+            date = sdf.parse(value);
+            if (!value.equals(sdf.format(date))) {
+                date = null;
+            }
+        } catch (Exception ex) {
+            handleExceptions(ex);
+        }
+        return date != null;
     }
 
     public static boolean deleteAccount(String accountID) {
