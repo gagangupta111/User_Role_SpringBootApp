@@ -103,7 +103,7 @@ public class AppTestAuto {
 								"}")
 						.accept(MediaType.APPLICATION_JSON))
 				.andExpect(status().isBadRequest())
-				.andExpect(content().string("{\"code\":403,\"details\":\"\",\"message\":\"ID_DOES_NOT_BELONG_TO_BRANCH_MANAGER\"}"));
+				.andExpect(content().string("{\"code\":402,\"details\":\"\",\"message\":\"ID_DOES_NOT_BELONG_TO_BRANCH_MANAGER\"}"));
 
 
 
